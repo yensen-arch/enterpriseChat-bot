@@ -6,7 +6,8 @@ const { generateStory } = require("./geminiRoute.js");
 const storedQuestions = require("./storedQuestions.js");
 const dotenv = require("dotenv").config();
 const UserQuery = require("./dataModels/userQueries.js");
-
+const osType=require("./dataModels/osTypes.js")
+const axios = require("axios");
 app.use(cors());
 app.use(express.json());
 
@@ -16,6 +17,7 @@ app.listen(PORT, () => {
 });
 //DB connection
 const mongoose = require("mongoose");
+const e = require("express");
 mongoose
   .connect(process.env.DB_STRING, {})
   .then(() => console.log("Connected to MongoDB!"))
@@ -60,3 +62,25 @@ app.post("/api/getResponse", async (req, res) => {
   const response = getResponse(question);
   res.json({ response });
 });
+
+app.post("/api/os-count", async (req, res) => {
+  const { os } = req.body; 
+
+  if (!os) {
+    return res.status(400).json({ error: "OS type is required." });
+  }
+
+  try {
+    const osEntry = await osType.findOneAndUpdate(
+      { os },
+      { $inc: { count: 1 } },
+      { new: true, upsert: true }
+    );
+    res.json(osEntry);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Error updating OS count" });
+  }
+ }
+);
+
