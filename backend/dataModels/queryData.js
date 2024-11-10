@@ -13,8 +13,12 @@ const queryDataSchema = new mongoose.Schema({
     default: Date.now,
   },
   os: { type: String, required: true },
-  device: { type: String, required: true },
-  resTime: { type: Number, required: true }, 
+  device: {
+    brand: { type: String },
+    model: { type: String },
+    type: { type: String },
+  },
+  resTime: { type: String, required: true },
 });
 
 module.exports = mongoose.model("queryData", queryDataSchema);

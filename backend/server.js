@@ -22,8 +22,6 @@ mongoose
   .then(() => console.log("Connected to MongoDB!"))
   .catch((error) => console.error("MongoDB connection error:", error));
 
-
-
 // Function to match question with keywords
 const getResponse = (question) => {
   question = question.toLowerCase();
@@ -37,16 +35,13 @@ const getResponse = (question) => {
 
 //api that takes the Q's
 app.post("/api/getResponse", async (req, res) => {
-  const { question } = req.body;
+  const { question, requestTime } = req.body;
   if (!question) {
     return res.status(400).json({ error: "Question is required" });
   }
-  // const newQuery = new queryData({ question });
-  // await newQuery.save().then((savedQuery) => {
-  //   console.log("saved to db", savedQuery);
-  // });
   try {
-    const response = await getResponse(question); // Add await here
+    const response = await getResponse(question); 
+    const responseTime = Date.now() - requestTime;
     return res.json({ response });
   } catch (error) {
     console.error("Error in getResponse:", error);
@@ -54,4 +49,20 @@ app.post("/api/getResponse", async (req, res) => {
   }
 });
 
-
+//api to save user details to db
+app.post("/api/saveUserDetails", async (req, res) => {
+  const { os, device, resTime, question, answer } = req.body;
+  if (!os || !device || !resTime || !question || !answer) {
+    return res.status(400).json({ error: "All fields are required" });
+  }
+  try {
+    const newQuery = new queryData({ os, device, resTime, question, answer });
+    await newQuery.save().then((savedQuery) => {
+      console.log("saved to db", savedQuery);
+    });
+    return res.json({ message: "User details saved successfully" });
+  } catch (error) {
+    console.error("Error in saveUserDetails:", error);
+    return res.status(500).json({ error: "Failed to save user details" });
+  }
+});

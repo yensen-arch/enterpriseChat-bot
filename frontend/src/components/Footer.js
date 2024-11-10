@@ -6,6 +6,7 @@ import DeviceDetector from "device-detector-js";
 const Footer = ({ setShowChat, setChatHistory, chatHistory }) => {
   const [text, setText] = useState("");
   const [deviceInfo, setDeviceInfo] = useState({});
+  const [resTime, setResTime] = useState(0);
 
   const userAgent = navigator.userAgent || window.opera;
   const deviceDetector = new DeviceDetector();
@@ -13,11 +14,37 @@ const Footer = ({ setShowChat, setChatHistory, chatHistory }) => {
 
   const handleSubmit = async () => {
     if (text) {
+      const startTime = Date.now();
+
+      //api for  Q&A's and the res time calculation
+
       try {
-        const response = await axios.post("http://localhost:5000/api/getResponse", {
-          question: text,
-        });
-        setChatHistory([...chatHistory, { question: text, response: response.data.response }]);
+        const response = await axios.post(
+          "http://localhost:5000/api/getResponse",
+          {
+            question: text,
+            requestTime: startTime,
+          }
+        );
+        setResTime(Date.now() - startTime);
+        setChatHistory([
+          ...chatHistory,
+          { question: text, response: response.data.response },
+        ]);
+
+        //api that saves user details in db
+        if(response.data.response){      
+         await axios.post(
+          "http://localhost:5000/api/saveUserDetails",
+          {
+            os: os,
+            device: { brand: deviceInfo.brand, model: deviceInfo.model, type: deviceInfo.type },
+            resTime: resTime,
+            question: text,
+            answer: response.data.response,
+          }
+        );
+        console.log(response.data);}
       } catch (error) {
         console.error(error);
       }
