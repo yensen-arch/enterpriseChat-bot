@@ -73,7 +73,7 @@ const Footer = ({ setShowChat, setChatHistory, chatHistory }) => {
 
   return (
     <div>
-      <div className="m-4 border border-gray-500 rounded-xl mx-4 flex">
+      <div className="m-4 sticky bg-white bottom-0 border border-grey-800 rounded-xl mx-4  flex">
         <input
           type="text"
           value={text}

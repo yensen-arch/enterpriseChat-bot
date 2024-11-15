@@ -51,7 +51,7 @@ const Cardgroup = () => {
   const [text, setText] = useState("");
 
   return (
-    <div className="bg-white rounded-lg transition duration-300 ">
+    <div className="bg-white transition duration-300 mt-4 ">
       
       <div className="grid grid-cols-2 gap-y-4 p-2">
         {buttons.map(({ label, icon, bg, hoverBg }, index) => (

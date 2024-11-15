@@ -7,9 +7,9 @@ import { FaArrowLeft } from "react-icons/fa";
 function ChatPage({ setShowChat, chatHistory }) {
   return (
     <>
-    <div className="bg-white flex w-full flex-col flex-grow mx-auto p-4 transition-all duration-500 ease-in-out">
+    <div className="bg-white flex max-h-[536px] w-full flex-col flex-grow mx-auto p-4 transition-all duration-500 ease-in-out">
       <div
-        className="flex flex-col gap-2 overflow-y-scroll min-h-[560px] max-h-[560px] custom-scrollbar"
+        className="flex flex-col gap-2 overflow-y-scroll  custom-scrollbar"
         style={{
           scrollbarWidth: "thin",
           scrollbarColor: "#ccc #f9f9f9",
