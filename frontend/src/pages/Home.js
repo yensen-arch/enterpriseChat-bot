@@ -3,6 +3,7 @@ import Navbar from "../components/Navbar.js";
 import Cardgroup from "../components/Cardgroup.js";
 import Footer from "../components/Footer.js";
 import ChatPage from "./ChatPage.js";
+import VideoGallery from "../components/VideoGallery.js";
 
 function Home() {
   const [showChat, setShowChat] = useState(
@@ -28,6 +29,7 @@ function Home() {
             </div>
           ) : (
             <div className="absolute w-full h-full opacity-100 translate-y-0 transition-all duration-500 ease-in-out opacity-0 -translate-y-4">
+              <VideoGallery />
               <Cardgroup />
             </div>
           )}
