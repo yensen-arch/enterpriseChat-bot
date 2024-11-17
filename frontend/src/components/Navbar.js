@@ -1,7 +1,14 @@
 import React from "react";
-import { FaBook, FaHome, FaUserCircle, FaChartPie, FaCog } from "react-icons/fa";
+import {
+  FaBook,
+  FaHome,
+  FaUserCircle,
+  FaChartPie,
+  FaCog,
+} from "react-icons/fa";
+import { Link } from "react-router-dom";
 
-const Navbar = () => {
+const Navbar = ({ setShowAnalysis, setShowChat }) => {
   return (
     <div className="min-h-20 z-10 w-full bg-gradient-to-r from-blue-800 via-blue-600 to-blue-800 shadow-md">
       <div className="flex justify-between items-center h-full px-6">
@@ -16,12 +23,20 @@ const Navbar = () => {
 
         {/* Navigation Icons */}
         <div className="flex space-x-6 text-white">
-          <button className="flex flex-col items-center">
+          <button
+            className="flex flex-col items-center"
+            onClick={() => {
+              setShowChat(false);
+              setShowAnalysis(false);
+            }}
+          >
             <FaHome size={22} />
           </button>
-          
-         
-          <button className="flex flex-col items-center">
+
+          <button
+            className="flex flex-col items-center"
+            onClick={() => setShowAnalysis(true)}
+          >
             <FaChartPie size={22} />
           </button>
           <button className="flex flex-col items-center">

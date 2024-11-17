@@ -33,18 +33,20 @@ const Footer = ({ setShowChat, setChatHistory, chatHistory }) => {
         ]);
 
         //api that saves user details in db
-        if(response.data.response){      
-         await axios.post(
-          "http://localhost:5000/api/saveUserDetails",
-          {
+        if (response.data.response) {
+          await axios.post("http://localhost:5000/api/saveUserDetails", {
             os: os,
-            device: { brand: deviceInfo.brand, model: deviceInfo.model, type: deviceInfo.type },
+            device: {
+              brand: deviceInfo.brand,
+              model: deviceInfo.model,
+              type: deviceInfo.type,
+            },
             resTime: resTime,
             question: text,
             answer: response.data.response,
-          }
-        );
-        console.log(response.data);}
+          });
+          console.log(response.data);
+        }
       } catch (error) {
         console.error(error);
       }
@@ -73,7 +75,7 @@ const Footer = ({ setShowChat, setChatHistory, chatHistory }) => {
 
   return (
     <div>
-      <div className="m-4 sticky bg-white bottom-0 border border-grey-800 rounded-xl mx-4  flex">
+      <div className="m-4 sticky bg-white bottom-0 border border-black rounded-xl mx-4  flex">
         <input
           type="text"
           value={text}

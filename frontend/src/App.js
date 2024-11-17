@@ -2,7 +2,6 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-d
 import Home from "./pages/Home.js";
 import NotFound from "./pages/NotFound.js";
 import ChatPage from "./pages/ChatPage.js";
-
 function App() {
 
   return (

@@ -3,8 +3,12 @@ import Navbar from "../components/Navbar.js";
 import Cardgroup from "../components/Cardgroup.js";
 import Footer from "../components/Footer.js";
 import ChatPage from "./ChatPage.js";
+import VideoGallery from "../components/VideoGallery.js";
+import AnalysisPage from "../components/AnalysisPage.js";
 
 function Home() {
+  const [showAnalysis, setShowAnalysis] = useState(false);
+
   const [showChat, setShowChat] = useState(
     () => JSON.parse(localStorage.getItem("showChat")) || false
   );
@@ -20,14 +24,19 @@ function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-r from-blue-300 via-blue-600 to-blue-300">
       <div className="w-[455px] h-screen bg-white flex flex-col mx-auto">
-        <Navbar />
+        <Navbar setShowAnalysis={setShowAnalysis} setShowChat={setShowChat} />
         <div className="flex-grow relative">
           {showChat ? (
             <div className="absolute w-full h-full opacity-0 translate-y-4 transition-all duration-500 ease-in-out opacity-100 translate-y-0">
               <ChatPage setShowChat={setShowChat} chatHistory={chatHistory} />
             </div>
+          ) : showAnalysis ? (
+            <div>
+              <AnalysisPage />
+            </div>
           ) : (
             <div className="absolute w-full h-full opacity-100 translate-y-0 transition-all duration-500 ease-in-out opacity-0 -translate-y-4">
+              <VideoGallery />
               <Cardgroup />
             </div>
           )}

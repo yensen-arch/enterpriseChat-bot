@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5050;
 const storedQuestions = require("./storedQuestions.js");
 const dotenv = require("dotenv").config();
 const queryData = require("./dataModels/queryData.js");
