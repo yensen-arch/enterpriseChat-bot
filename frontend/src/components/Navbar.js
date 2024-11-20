@@ -8,7 +8,7 @@ import {
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
-const Navbar = ({ setShowAnalysis, setShowChat }) => {
+const Navbar = ({ setShowChat }) => {
   return (
     <div className="min-h-20 z-10 w-full bg-gradient-to-r from-blue-800 via-blue-600 to-blue-800 shadow-md">
       <div className="flex justify-between items-center h-full px-6">
@@ -25,23 +25,17 @@ const Navbar = ({ setShowAnalysis, setShowChat }) => {
         <div className="flex space-x-6 text-white">
           <button
             className="flex flex-col items-center"
-            onClick={() => {
-              setShowChat(false);
-              setShowAnalysis(false);
-            }}
+            onClick={() => setShowChat(false)}
           >
             <FaHome size={22} />
           </button>
 
-          <button
-            className="flex flex-col items-center"
-            onClick={() => setShowAnalysis(true)}
-          >
+          <Link to="/analysis" className="flex flex-col items-center">
             <FaChartPie size={22} />
-          </button>
-          <button className="flex flex-col items-center">
+          </Link>
+          <Link to="/settings" className="flex flex-col items-center">
             <FaCog size={22} />
-          </button>
+          </Link>
         </div>
       </div>
     </div>

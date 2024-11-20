@@ -1,25 +1,24 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 import YouTube from "react-youtube";
-
 const videos = [
   {
     id: 1,
-    title: "Trending Videos",
-    videoId: "dQw4w9WgXcQ",
+    title: "Introducing Corover.ai",
+    videoId: "_9u8FUH62Co",
   },
   {
     id: 2,
-    title: "Tech Innovation",
-
-    videoId: "dQw4w9WgXcQ",
+    title: "Chatbots By Corover",
+    videoId: "2XPpZ-yfxB8",
   },
   {
     id: 3,
-    title: "Art History",
-    videoId: "dQw4w9WgXcQ",
+    title: "Bharat GPT",
+    videoId: "LWpESnrd7Q8",
   },
 ];
+
 
 export default function Component() {
   const [currentIndex, setCurrentIndex] = useState(0);

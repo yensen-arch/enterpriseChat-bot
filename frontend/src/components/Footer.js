@@ -11,16 +11,13 @@ const Footer = ({ setShowChat, setChatHistory, chatHistory }) => {
   const userAgent = navigator.userAgent || window.opera;
   const deviceDetector = new DeviceDetector();
   const device = deviceDetector.parse(userAgent);
-
   const handleSubmit = async () => {
     if (text) {
       const startTime = Date.now();
-
       //api for  Q&A's and the res time calculation
-
       try {
         const response = await axios.post(
-          "http://localhost:5000/api/getResponse",
+          "http://localhost:5050/api/getResponse",
           {
             question: text,
             requestTime: startTime,
@@ -34,7 +31,7 @@ const Footer = ({ setShowChat, setChatHistory, chatHistory }) => {
 
         //api that saves user details in db
         if (response.data.response) {
-          await axios.post("http://localhost:5000/api/saveUserDetails", {
+          await axios.post("http://localhost:5050/api/saveUserDetails", {
             os: os,
             device: {
               brand: deviceInfo.brand,

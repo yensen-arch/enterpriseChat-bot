@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-d
 import Home from "./pages/Home.js";
 import NotFound from "./pages/NotFound.js";
 import ChatPage from "./pages/ChatPage.js";
+import AnalysisPage from "./pages/AnalysisPage.js";
 function App() {
 
   return (
@@ -14,6 +15,10 @@ function App() {
         <Route
           path="/chats"
           element={ <ChatPage /> }
+        />
+        <Route
+          path="/analysis"
+          element={ <AnalysisPage /> }
         />
         <Route path="*" element={<NotFound />} />
       </Routes>

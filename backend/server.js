@@ -7,6 +7,7 @@ const dotenv = require("dotenv").config();
 const queryData = require("./dataModels/queryData.js");
 const axios = require("axios");
 const qs = require("qs");
+const Fuse = require("fuse.js");
 app.use(cors());
 app.use(express.json());
 
@@ -23,14 +24,31 @@ mongoose
   .catch((error) => console.error("MongoDB connection error:", error));
 
 // Function to match question with keywords
+
+const options = {
+  keys: ["keywords"], // Fields to search in
+  threshold: 0.6  ,     // Fuzzy match threshold (lower = stricter match)
+  includeScore: true, // Include match score for ranking
+};
+
+const fuse = new Fuse(storedQuestions, options);
+
 const getResponse = (question) => {
   question = question.toLowerCase();
-  for (const item of storedQuestions) {
-    if (item.keywords.some((keyword) => question.includes(keyword))) {
-      return item.response;
-    }
+  const results = fuse.search(question); // Perform the search
+  if (results.length > 0) {
+    return results[0].item.response; // Return the best match response
+  } else {
+    return "Sorry, I didn't understand that.";
   }
-  return "Sorry, I didn't understand that.";
+
+
+  // for (const item of storedQuestions) {
+  //   if (item.keywords.some((keyword) => question.includes(keyword))) {
+  //     return item.response;
+  //   }
+  // }
+  // return "Sorry, I didn't understand that.";
 };
 
 //api that takes the Q's
@@ -51,7 +69,8 @@ app.post("/api/getResponse", async (req, res) => {
 
 //api to save user details to db
 app.post("/api/saveUserDetails", async (req, res) => {
-  const { os, device, resTime, question, answer } = req.body;
+  let { os, device, resTime, question, answer } = req.body;
+  resTime = String(resTime) || 0;
   if (!os || !device || !resTime || !question || !answer) {
     return res.status(400).json({ error: "All fields are required" });
   }
