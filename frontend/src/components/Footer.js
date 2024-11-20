@@ -30,8 +30,10 @@ const Footer = ({ setShowChat, setChatHistory, chatHistory }) => {
         ]);
 
         //api that saves user details in db
-        if (response.data.response) {
-          await axios.post("http://localhost:5050/api/saveUserDetails", {
+        if(response.data.response){      
+         await axios.post(
+          "http://localhost:5000/api/saveUserDetails",
+          {
             os: os,
             device: {
               brand: deviceInfo.brand,
